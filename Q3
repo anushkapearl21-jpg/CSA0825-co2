@@ -1,0 +1,32 @@
+
+def validate_and_format_plate(raw_plate):
+
+    clean = raw_plate.replace("-", "").replace(" ", "").upper()
+
+    if len(clean) not in (9, 10):
+        return False, "Invalid Length"
+
+    state = clean[:2]
+    district = clean[2:4]
+    series = clean[4:-4]
+    number = clean[-4:]
+
+    if (state.isalpha() and district.isdigit()
+            and series.isalpha() and number.isdigit()):
+
+        return True, f"{state} {district} {series} {number}"
+
+    return False, "Invalid Format"
+
+
+test_plates = [
+    "tn09a1234",
+    "TN 09 AB 1234",
+    "TN-09-AB-1234",
+    "TN09A12B4",
+    "T109AB1234",
+    "TN091234"
+]
+
+for plate in test_plates:
+    print(plate, "=>", validate_and_format_plate(plate))
