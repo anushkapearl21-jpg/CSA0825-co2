@@ -1,0 +1,35 @@
+
+import time
+
+
+def ways_iterative(n):
+
+    if n < 0:
+        raise ValueError("n must be non-negative")
+
+    if n <= 1:
+        return 1
+
+    prev2, prev1 = 1, 1
+
+    for _ in range(2, n + 1):
+
+        prev2, prev1 = prev1, prev2 + prev1
+
+    return prev1
+
+
+start = time.perf_counter()
+
+result_1000 = ways_iterative(1000)
+
+elapsed = time.perf_counter() - start
+
+
+print("Iterative n=1000 completed successfully.")
+
+print("Exact result:", result_1000)
+
+print("Result digit count:", len(str(result_1000)))
+
+print(f"Execution time: {elapsed:.6f} seconds")
