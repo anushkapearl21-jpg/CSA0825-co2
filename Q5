@@ -1,0 +1,34 @@
+
+def add_item_buggy(item, order=[]):
+    order.append(item)
+    return order
+
+
+def add_item(item, order=None):
+    if order is None:
+        order = []
+
+    order.append(item)
+    return order
+
+
+# Buggy function
+bug_first = add_item_buggy("Tea")
+bug_second = add_item_buggy("Vada")
+
+print("Buggy first:", bug_first)
+print("Buggy second:", bug_second)
+
+
+# Correct function
+correct_first = add_item("Tea")
+correct_second = add_item("Vada")
+
+print("Correct first:", correct_first)
+print("Correct second:", correct_second)
+
+
+# Passing a list explicitly
+customer_order = ["Coffee"]
+
+print("Custom order:", add_item("Vada", customer_order))
