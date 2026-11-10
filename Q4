@@ -1,0 +1,36 @@
+
+import time
+
+items = [f"Item{i}:Rs{i % 50}" for i in range(200000)]
+
+
+def build_plus(parts):
+    text = ""
+
+    for part in parts:
+        text += part + ";"
+
+    return text
+
+
+def build_join(parts):
+    return ";".join(parts) + ";"
+
+
+start = time.perf_counter()
+a = build_plus(items)
+plus_time = time.perf_counter() - start
+
+
+start = time.perf_counter()
+b = build_join(items)
+join_time = time.perf_counter() - start
+
+
+print("Same text:", a == b)
+print("Output length:", len(b))
+
+print(f"+= time: {plus_time:.6f} seconds")
+print(f"join time: {join_time:.6f} seconds")
+
+print("join is faster:", join_time < plus_time)
