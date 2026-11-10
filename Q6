@@ -1,0 +1,50 @@
+
+from functools import lru_cache
+
+naive_calls = 0
+memo_calls = 0
+
+
+def ways_naive(n):
+    global naive_calls
+
+    naive_calls += 1
+
+    if n <= 1:
+        return 1
+
+    return ways_naive(n - 1) + ways_naive(n - 2)
+
+
+@lru_cache(maxsize=None)
+def ways_memo(n):
+    global memo_calls
+
+    memo_calls += 1
+
+    if n <= 1:
+        return 1
+
+    return ways_memo(n - 1) + ways_memo(n - 2)
+
+
+for n in (10, 20, 25):
+
+    naive_calls = 0
+    naive_result = ways_naive(n)
+
+    print(f"Naive n={n}: result={naive_result}, calls={naive_calls}")
+
+    ways_memo.cache_clear()
+    memo_calls = 0
+
+    memo_result = ways_memo(n)
+
+    print(f"Memo n={n}: result={memo_result}, calls={memo_calls}")
+
+
+try:
+    ways_memo(1000)
+
+except RecursionError:
+    print("Memoized n=1000: RecursionError (call-stack limit)")
